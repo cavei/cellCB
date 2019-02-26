@@ -8,7 +8,8 @@ Description: Collection of function to create cell to cell interactome.
     Cell City Band - CellCB put cell in communication.
 License: AGPL-3
 Imports: methods, Biobase, BoolNet, EDASeq, RUVSeq, TCseq, edgeR, graph, network, reshape2,
-  RColorBrewer, ndtv, networkDynamic, gridExtra, DOSE, clusterProfiler, plyr, magrittr, org.Mm.eg.db
+  RColorBrewer, ndtv, networkDynamic, gridExtra, DOSE, clusterProfiler, plyr,
+  magrittr, org.Mm.eg.db, ggplot2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
