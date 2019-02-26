@@ -5,7 +5,7 @@
 \alias{anyLogFC}
 \title{Extract the contrasts with a given log fold change (lfc) from anova-like (edgeR) lfc table}
 \usage{
-anyCmpSigByLogFC(x, cmp, lfcThr = 2)
+anyCmpSigByLogFC(x, cmp, lfcThr = 2, baseCellCmp = "ec")
 
 anyLogFC(x, lfcThr = 2)
 }
@@ -15,6 +15,8 @@ anyLogFC(x, lfcThr = 2)
 \item{cmp}{the vector of contrasts, typically colnames of lfc table}
 
 \item{lfcThr}{the lfc threshold (in absolute value)}
+
+\item{baseCellCmp}{the basal cell used in comparison}
 }
 \value{
 a data.frame with

@@ -3,6 +3,7 @@
 #' @param x a vector of logFoldChanges
 #' @param cmp the vector of contrasts, typically colnames of lfc table
 #' @param lfcThr the lfc threshold (in absolute value)
+#' @param baseCellCmp the basal cell used in comparison
 #'
 #' @return a data.frame with
 #'    \item{gene}{the gene}
@@ -16,16 +17,16 @@
 #' @importFrom stats dist
 #'
 #' @export
-anyCmpSigByLogFC <- function(x, cmp, lfcThr=2) {
+anyCmpSigByLogFC <- function(x, cmp, lfcThr=2, baseCellCmp="ec") {
   v <- as.numeric(x)
   idx <- which(abs(v) >= lfcThr)
   if (length(idx)!=0) {
     first <- data.frame(lfc= v[idx],
                         num=sub(pattern = "logFC.cell", "", cmp[idx]),
-                        den="ec",
+                        den=baseCellCmp,
                         stringsAsFactors = F)
-    winners <- first$num; winners[first$lfc < 0] <- "ec"
-    loosers <- first$num; loosers[first$lfc > 0] <- "ec"
+    winners <- first$num; winners[first$lfc < 0] <- baseCellCmp
+    loosers <- first$num; loosers[first$lfc > 0] <- baseCellCmp
 
     first$winner <- winners
     first$looser <- loosers

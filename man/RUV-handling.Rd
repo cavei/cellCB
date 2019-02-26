@@ -26,7 +26,8 @@ filterExpression(cell, condition, expr, annotations, rcFilter = NULL,
 
 filterExpressionByRpkmMean(cell, condition, expr, annotations,
   rcFilter = NULL, atLeastIn = 1, rpkmMean = NULL,
-  unvariantNumber = 5000, varName = "days")
+  unvariantNumber = 5000, varName = "days",
+  gene_length = "gene_length.txt")
 
 computeRPKM(eset,
   gene_length = "../m38.p5-ensembl-91-renge-length/gene_length.txt")
@@ -44,9 +45,9 @@ computeRPKM(eset,
 
 \item{varName}{the variable that set up the contrast to compute invariants; default "days"}
 
-\item{cell}{string for cell name}
+\item{cell}{string for cell name (can be ALL or a vector)}
 
-\item{condition}{string for cell condition}
+\item{condition}{string for cell condition (can be a vector with more than one)}
 
 \item{expr}{data matrix}
 
@@ -60,9 +61,9 @@ computeRPKM(eset,
 
 \item{rpkmMean}{minimal RPKM row mean accepted to keep the row; NULL}
 
-\item{eset}{expression set}
-
 \item{gene_length}{filename of file containg gene lengths}
+
+\item{eset}{expression set}
 }
 \value{
 expression set (eset)

@@ -11,6 +11,7 @@
 #' @importFrom RUVSeq RUVg
 #' @importFrom stats model.matrix
 #' @importFrom Biobase pData
+#' @importFrom EDASeq counts
 #'
 #' @return a list with top Tags table and setEmpirical
 #' @export
@@ -20,12 +21,12 @@ edgeR.anovaOnTimeWithRUV <- function(eset, unvariant, k=1, formula="~days + W_1"
   setEmpirical <- RUVSeq::RUVg(eset, unvariant, k=k)
 
   design <- model.matrix(as.formula(formula), data=pData(setEmpirical))
-  y <- edgeR::DGEList(counts=counts(setEmpirical), group=pData(setEmpirical)[, varName])
+  y <- edgeR::DGEList(counts=EDASeq::counts(setEmpirical), group=pData(setEmpirical)[, varName])
   y <- edgeR::calcNormFactors(y, method="upperquartile")
   y <- edgeR::estimateGLMCommonDisp(y, design)
   y <- edgeR::estimateGLMTagwiseDisp(y, design)
   if (is.na(y$common.dispersion) & all(is.na(y$tagwise.dispersion))) {
-    y <- edgeR::DGEList(counts=counts(setEmpirical), group=pData(setEmpirical)[, varName])
+    y <- edgeR::DGEList(counts=EDASeq::counts(setEmpirical), group=pData(setEmpirical)[, varName])
     y <- edgeR::calcNormFactors(y, method="upperquartile")
     y1 <- y
     y1$samples$group <- 1
@@ -46,6 +47,7 @@ edgeR.anovaOnTimeWithRUV <- function(eset, unvariant, k=1, formula="~days + W_1"
 #'  estimateGLMTagwiseDisp glmFit estimateDisp topTags
 #' @importFrom RUVSeq RUVg
 #' @importFrom stats model.matrix
+#' @importFrom EDASeq counts
 #'
 #' @export
 #'
@@ -53,12 +55,12 @@ edgeR.anovaOnTime <- function(eset, k=1, formula="~days", varName="days") {
   # setEmpirical <- RUVg(eset, unvariant, k=k)
   setEmpirical <- eset
   design <- model.matrix(as.formula(formula), data=pData(setEmpirical))
-  y <- edgeR::DGEList(counts=counts(setEmpirical), group=pData(setEmpirical)[, varName])
+  y <- edgeR::DGEList(counts=EDASeq::counts(setEmpirical), group=pData(setEmpirical)[, varName])
   y <- edgeR::calcNormFactors(y, method="upperquartile")
   y <- edgeR::estimateGLMCommonDisp(y, design)
   y <- edgeR::estimateGLMTagwiseDisp(y, design)
   if (is.na(y$common.dispersion) & all(is.na(y$tagwise.dispersion))) {
-    y <- edgeR::DGEList(counts=counts(setEmpirical), group=pData(setEmpirical)[, varName])
+    y <- edgeR::DGEList(counts=EDASeq::counts(setEmpirical), group=pData(setEmpirical)[, varName])
     y <- edgeR::calcNormFactors(y, method="upperquartile")
     y1 <- y
     y1$samples$group <- 1
@@ -82,6 +84,7 @@ edgeR.anovaOnTime <- function(eset, k=1, formula="~days", varName="days") {
 #' @importFrom RUVSeq RUVg
 #' @importFrom stats model.matrix
 #' @importFrom Biobase pData
+#' @importFrom EDASeq counts
 #'
 #' @export
 #'
@@ -89,7 +92,7 @@ edgeR.allCmpOnTimeWithRUV <- function(eset, unvariant, k=1, formula="~days + W_1
   setEmpirical <- RUVg(eset, unvariant, k=k)
 
   design <- model.matrix(as.formula(formula), data=pData(setEmpirical))
-  y <- DGEList(counts=counts(setEmpirical), group=pData(setEmpirical)[, varName])
+  y <- DGEList(counts=EDASeq::counts(setEmpirical), group=pData(setEmpirical)[, varName])
   y <- calcNormFactors(y, method="upperquartile")
   y <- estimateGLMCommonDisp(y, design)
   y <- estimateGLMTagwiseDisp(y, design)

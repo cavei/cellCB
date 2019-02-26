@@ -43,6 +43,7 @@ createSeqExpressionSet <- function(expression, annotation) {
 #' @importFrom edgeR DGEList calcNormFactors estimateGLMCommonDisp
 #'  estimateGLMTagwiseDisp glmFit glmLRT
 #' @importFrom stats model.matrix
+#' @importFrom EDASeq counts
 #' @importFrom utils tail
 #'
 #' @rdname RUV-handling
@@ -71,13 +72,14 @@ computeEmpiricalUnvariants <- function(set, number=5000, varName="days") {
 #' @importFrom edgeR DGEList calcNormFactors estimateGLMCommonDisp
 #'  estimateGLMTagwiseDisp glmFit
 #' @importFrom stats model.matrix residuals
+#' @importFrom EDASeq counts
 #' @rdname RUV-handling
 #'
 #' @export
 #'
 computeResiduals <- function(set) {
   design <- model.matrix(~days, data=pData(set))
-  y <- DGEList(counts=counts(set), group=pData(set)$days)
+  y <- DGEList(counts=EDASeq::counts(set), group=pData(set)$days)
   y <- calcNormFactors(y, method="upperquartile")
   y <- estimateGLMCommonDisp(y, design)
   y <- estimateGLMTagwiseDisp(y, design)
@@ -98,6 +100,7 @@ computeResiduals <- function(set) {
 #' @export
 #'
 filterExps <- function(cell, condition, expr, annotations, rcFilter=NULL) {
+  warning("Function deprecated")
   sel <- annotations$cell == cell & annotations$condition == condition
   a <- annotations[sel, , drop=F]
   e <- as.numeric(expr[, row.names(a), drop=F])
@@ -120,8 +123,8 @@ filterExps <- function(cell, condition, expr, annotations, rcFilter=NULL) {
 
 #' Filter expression
 #'
-#' @param cell string for cell name
-#' @param condition string for cell condition
+#' @param cell string for cell name (can be ALL or a vector)
+#' @param condition string for cell condition (can be a vector with more than one)
 #' @param expr data matrix
 #' @param annotations annotation data referred to the matrix
 #' @param rcFilter minimal read count accepted in atLeastIn samples
@@ -138,10 +141,11 @@ filterExps <- function(cell, condition, expr, annotations, rcFilter=NULL) {
 #'
 filterExpression <- function(cell, condition, expr, annotations, rcFilter=NULL,
                              atLeastIn=1, unvariantNumber=5000, varName="days") {
+
   if (cell=="ALL") {
-    sel <- annotations$condition == condition
+    sel <- annotations$condition %in% condition
   } else {
-    sel <- annotations$cell == cell & annotations$condition == condition
+    sel <- annotations$cell %in% cell & annotations$condition %in% condition
   }
 
   a <- annotations[sel, , drop=F]
@@ -172,6 +176,7 @@ filterExpression <- function(cell, condition, expr, annotations, rcFilter=NULL,
 #' Filter expression using RPKM
 #'
 #' @inheritParams filterExpression
+#' @inheritParams computeRPKM
 #' @param rpkmMean minimal RPKM row mean accepted to keep the row; NULL
 #'
 #' @return a filtered eset and other details
@@ -183,18 +188,18 @@ filterExpression <- function(cell, condition, expr, annotations, rcFilter=NULL,
 #'
 filterExpressionByRpkmMean <- function(cell, condition, expr, annotations, rcFilter=NULL,
                                        atLeastIn=1, rpkmMean=NULL, unvariantNumber=5000,
-                                       varName="days") {
+                                       varName="days", gene_length="gene_length.txt") {
   if (cell=="ALL") {
-    sel <- annotations$condition == condition
+    sel <- annotations$condition %in% condition
   } else {
-    sel <- annotations$cell == cell & annotations$condition == condition
+    sel <- annotations$cell %in% cell & annotations$condition %in% condition
   }
 
   a <- annotations[sel, , drop=F]
   e <- data.matrix(expr[, row.names(a), drop=F])
 
   eset <- createSeqExpressionSet(e,a)
-  rpkm <- computeRPKM(eset)
+  rpkm <- computeRPKM(eset, gene_length = gene_length)
 
   keepRpmk <- rep(TRUE, nrow(rpkm))
   if (!is.null(rpkmMean)) {
@@ -237,6 +242,7 @@ filterExpressionByRpkmMean <- function(cell, condition, expr, annotations, rcFil
 #'
 #' @importFrom EDASeq counts
 #' @importFrom edgeR DGEList rpkm
+#' @importFrom utils read.table
 #'
 #' @rdname RUV-handling
 #'
@@ -250,9 +256,9 @@ computeRPKM <- function(eset, gene_length="../m38.p5-ensembl-91-renge-length/gen
   lengths <- lengths[lengths$gene %in% usableGenes, ]
   maxMeanGeneLength <- tapply(seq_len(NROW(lengths)), lengths$gene, function(idx) max(lengths$mean[idx]))
 
-  expr <- counts(eset)[usableGenes, ]
+  expr <- EDASeq::counts(eset)[usableGenes, ]
   maxMeanGeneLength <- maxMeanGeneLength[usableGenes]
-  y <- DGEList(counts=expr)
+  y <- edgeR::DGEList(counts=expr)
   y$genes <- data.frame(Length=as.numeric(maxMeanGeneLength))
   edgeR::rpkm(y, gene_length="Length")
 }
