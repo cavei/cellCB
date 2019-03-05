@@ -46,7 +46,7 @@ meltTablesWithLoosers <- function(list) {
   out
 }
 
-#' Melt list of tables
+#' Melt list of vectors
 #'
 #' Tables are the output of tables
 #'
@@ -67,4 +67,6 @@ meltListOfVectors <- function(list) {
   }
   out
 }
+
+
 

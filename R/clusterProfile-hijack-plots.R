@@ -46,11 +46,23 @@ dotplot_internal <- function(object, x = "geneRatio", color = "p.adjust",
 personal.dotplot.compareClusterResult <- function(object, x=~Cluster, colorBy="p.adjust", showCategory=5,
                                                   by="geneRatio", split=NULL, includeAll=TRUE,
                                                   font.size=12, title="",
-                                                  filterSets=NULL) {
+                                                  filterSets=NULL, relabel_description=NULL) {
 
   df <- personal.fortify.compareClusterResult(object, showCategory=showCategory, by=by,
                                               includeAll=includeAll, split=split, filterSets=filterSets)
+
+  if (!is.null(relabel_description)){
+    df <- rename_description(df, relabel_description)
+  }
   clusterProfiler:::plotting.clusterProfile(df, x=x, type="dot", colorBy=colorBy, by=by, title=title, font.size=font.size)
+}
+
+rename_description <- function(df, relabel_description) {
+  dict <- meltListOfVectors(relabel_description)
+  new_names <- dict$nm
+  names(new_names) <- dict$content
+  df$Description <- factor(sapply(as.character(df$Description), function(d) new_names[d]))
+  df
 }
 
 #' @importFrom ggplot2 fortify
