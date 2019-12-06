@@ -4,10 +4,21 @@
 \alias{my.enricher}
 \title{Perform enricher with a slight change}
 \usage{
-my.enricher(gene, go_bp_full_data, pvalueCutoff = 0.05,
-  pAdjustMethod = "BH", universe, qvalueCutoff = 0.2, minGSSize = 10,
-  maxGSSize = 500, readable = FALSE, pool = FALSE, ont = "BP",
-  keyType = "SYMBOL", OrgDb = "org.Mm.eg.db")
+my.enricher(
+  gene,
+  go_bp_full_data,
+  pvalueCutoff = 0.05,
+  pAdjustMethod = "BH",
+  universe,
+  qvalueCutoff = 0.2,
+  minGSSize = 10,
+  maxGSSize = 500,
+  readable = FALSE,
+  pool = FALSE,
+  ont = "BP",
+  keyType = "SYMBOL",
+  OrgDb = "org.Mm.eg.db"
+)
 }
 \arguments{
 \item{gene}{gene}

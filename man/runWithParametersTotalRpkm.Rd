@@ -4,10 +4,22 @@
 \alias{runWithParametersTotalRpkm}
 \title{Run in total muscle [DEPRECATED]}
 \usage{
-runWithParametersTotalRpkm(dataFile, annotationFile, cell, condition,
-  runWithK = 1, runWithFormula = "~days + W_1", varName = "days",
-  pADJ.thr = 0.05, logfcthr = 1.5, rcFilter = 100, atLeastIn = 2,
-  rpkmMean = 3, clusterK = 9, gene_length = "gene_length.txt")
+runWithParametersTotalRpkm(
+  dataFile,
+  annotationFile,
+  cell,
+  condition,
+  runWithK = 1,
+  runWithFormula = "~days + W_1",
+  varName = "days",
+  pADJ.thr = 0.05,
+  logfcthr = 1.5,
+  rcFilter = 100,
+  atLeastIn = 2,
+  rpkmMean = 3,
+  clusterK = 9,
+  gene_length = "gene_length.txt"
+)
 }
 \arguments{
 \item{dataFile}{the name of the file that contains the expression dataset}

@@ -21,16 +21,34 @@ computeResiduals(set)
 
 filterExps(cell, condition, expr, annotations, rcFilter = NULL)
 
-filterExpression(cell, condition, expr, annotations, rcFilter = NULL,
-  atLeastIn = 1, unvariantNumber = 5000, varName = "days")
+filterExpression(
+  cell,
+  condition,
+  expr,
+  annotations,
+  rcFilter = NULL,
+  atLeastIn = 1,
+  unvariantNumber = 5000,
+  varName = "days"
+)
 
-filterExpressionByRpkmMean(cell, condition, expr, annotations,
-  rcFilter = NULL, atLeastIn = 1, rpkmMean = NULL,
-  unvariantNumber = 5000, varName = "days",
-  gene_length = "gene_length.txt")
+filterExpressionByRpkmMean(
+  cell,
+  condition,
+  expr,
+  annotations,
+  rcFilter = NULL,
+  atLeastIn = 1,
+  rpkmMean = NULL,
+  unvariantNumber = 5000,
+  varName = "days",
+  gene_length = "gene_length.txt"
+)
 
-computeRPKM(eset,
-  gene_length = "../m38.p5-ensembl-91-renge-length/gene_length.txt")
+computeRPKM(
+  eset,
+  gene_length = "../m38.p5-ensembl-91-renge-length/gene_length.txt"
+)
 }
 \arguments{
 \item{obj}{a list with $e expression and $ann annotation}

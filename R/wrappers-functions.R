@@ -124,7 +124,11 @@ runWithDiagnosticPlots <- function(cellCond, k=1, formula="~days + W_1",
                                         formula = formula, varName=varName)
   }
   cls <- as.factor(pData(esetRUV$setEmpirical)[, varName])
-  colors <- RColorBrewer::brewer.pal(length(unique(cls)), "Spectral")
+  if (length(unique(cls)) <= 2){
+    colors <- RColorBrewer::brewer.pal(11, "Spectral")[c(3,10)]
+  } else {
+    colors <- RColorBrewer::brewer.pal(length(unique(cls)), "Spectral")
+  }
   if (type[1]=="all") {
     par(mfrow=c(1,1))
     EDASeq::plotRLE(esetRUV$setEmpirical, outline=FALSE, col=colors[cls], las=3, cex.axis=0.6)

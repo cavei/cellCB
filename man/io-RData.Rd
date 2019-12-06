@@ -12,8 +12,12 @@ getNormExpressionFromRData(RData, objname)
 
 getRpkmExpressionFromRData(RData, objname)
 
-extractDegsPvaluesWithLFCFromRData(RData, objname, pADJ.thr = 0.05,
-  logfcthr = 1.5)
+extractDegsPvaluesWithLFCFromRData(
+  RData,
+  objname,
+  pADJ.thr = 0.05,
+  logfcthr = 1.5
+)
 
 getDEGsPvaluesFromRData(RData, objname)
 

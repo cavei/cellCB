@@ -4,8 +4,13 @@
 \alias{edgeR.allCmpOnTimeWithRUV}
 \title{ANOVA like analysis (edgeR)}
 \usage{
-edgeR.allCmpOnTimeWithRUV(eset, unvariant, k = 1,
-  formula = "~days + W_1", varName = "days")
+edgeR.allCmpOnTimeWithRUV(
+  eset,
+  unvariant,
+  k = 1,
+  formula = "~days + W_1",
+  varName = "days"
+)
 }
 \arguments{
 \item{eset}{expression set}

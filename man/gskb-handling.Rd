@@ -10,8 +10,14 @@ convertGskb2Term2Gene(list)
 
 convertGskb2Term2Name(list)
 
-summaryBarplot(enrichmentList, single = T, title = "cluster",
-  ncol = 3, font.size = 5, showCategory = 100)
+summaryBarplot(
+  enrichmentList,
+  single = T,
+  title = "cluster",
+  ncol = 3,
+  font.size = 5,
+  showCategory = 100
+)
 }
 \arguments{
 \item{list}{a list}

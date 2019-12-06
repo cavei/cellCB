@@ -4,8 +4,13 @@
 \alias{edgeR.anovaOnTimeWithRUV}
 \title{ANOVA like analysis (edgeR) with RUV on times}
 \usage{
-edgeR.anovaOnTimeWithRUV(eset, unvariant, k = 1,
-  formula = "~days + W_1", varName = "days")
+edgeR.anovaOnTimeWithRUV(
+  eset,
+  unvariant,
+  k = 1,
+  formula = "~days + W_1",
+  varName = "days"
+)
 }
 \arguments{
 \item{eset}{expression set}

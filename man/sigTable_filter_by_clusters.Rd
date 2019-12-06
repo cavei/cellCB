@@ -4,8 +4,7 @@
 \alias{sigTable_filter_by_clusters}
 \title{Filter significance table pickeing 1 term for cluster}
 \usage{
-sigTable_filter_by_clusters(sigTable, clusters, lowerCut = 2,
-  upperCut = Inf)
+sigTable_filter_by_clusters(sigTable, clusters, lowerCut = 2, upperCut = Inf)
 }
 \arguments{
 \item{sigTable}{the table with significant results}

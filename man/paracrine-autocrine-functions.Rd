@@ -15,8 +15,11 @@
 \alias{renderHTMLvideo2.0}
 \title{get Cell Expression Signature}
 \usage{
-getCellExpressionSignature(RData = "rpkm-Rdatas/all-wt.RData",
-  objname = "all_wt", cols = 1:4)
+getCellExpressionSignature(
+  RData = "rpkm-Rdatas/all-wt.RData",
+  objname = "all_wt",
+  cols = 1:4
+)
 
 extractGenesBehavious(activeAtDays, activeAtDaysTot, constitutiveWide)
 
@@ -32,18 +35,30 @@ removeElement(namedVector, nms)
 
 wiseMergeTimePoints(ligandReceptorBehaviours)
 
-paraWiseMergeTimePoints(ligandReceptorBehavioursCell, ligCell = "fap",
-  recCell = "ec")
+paraWiseMergeTimePoints(
+  ligandReceptorBehavioursCell,
+  ligCell = "fap",
+  recCell = "ec"
+)
 
-paraWiseMultiMergeTimePoints(ligandReceptorBehavioursCell,
-  ligCells = c("ec", "fap", "mp", "inf", "per"), recCell = "ec",
-  removeAutocrine = TRUE, useConstitutiveLigands = FALSE)
+paraWiseMultiMergeTimePoints(
+  ligandReceptorBehavioursCell,
+  ligCells = c("ec", "fap", "mp", "inf", "per"),
+  recCell = "ec",
+  removeAutocrine = TRUE,
+  useConstitutiveLigands = FALSE
+)
 
-renderHTMLvideo(ligandsReceptorCumulative, receptorGraph, lrCols,
-  lrCell = NULL, cell, condition)
+renderHTMLvideo(
+  ligandsReceptorCumulative,
+  receptorGraph,
+  lrCols,
+  lrCell = NULL,
+  cell,
+  condition
+)
 
-renderHTMLvideo2.0(ligandsReceptorCumulative, receptorGraph, cell,
-  condition)
+renderHTMLvideo2.0(ligandsReceptorCumulative, receptorGraph, cell, condition)
 }
 \arguments{
 \item{RData}{an data RData}

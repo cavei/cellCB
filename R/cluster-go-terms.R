@@ -17,6 +17,24 @@ sigTable_filter_by_clusters <- function(sigTable, clusters, lowerCut = 2, upperC
   list(keep_go=keep_go, grp=groupByCluster(cls))
 }
 
+#' Filter significance table picking 1 term for cluster_map
+#'
+#' @param sigTable the table with significant results
+#' @param cluster_map the GO organized in clusters
+#' @param lowerCut excludes the GO with fewer than lowerCut significant times
+#' @param upperCut excludes the GO with more than upperCut significant times
+#'
+#' @export
+#'
+sigTable_filter_by_clusters_map <- function(sigTable, cluster_map, lowerCut = 2, upperCut=Inf) {
+  terms <- exclude_go_terms_by_counts(sigTable, lowerCut=lowerCut, upperCut=upperCut)
+  cls <- cluster_map[cluster_map[,1] %in% terms, , drop=F]
+  if (any(is.na(cls)))
+    stop("Some terms are not present in clusters")
+
+  keep_go <- guess_best_sets_map(cls, sigTable)
+  list(keep_go=keep_go, grp=groupByCluster_map(cls))
+}
 
 remove_words <- function(x) {
   patterns = c("positive regulation of ", "negative regulation of ",
@@ -88,6 +106,20 @@ guess_best_sets <- function(clusters, df) {
     bestIdx <- head(order(clsdf$"p.adjust"), 1)
     clsdf$"Description"[bestIdx]
   })
+}
+
+groupByCluster_map <- function(cls) {tapply(cls[,1], cls[,2],function(x) x)}
+
+#' @importFrom utils head
+guess_best_sets_map <- function(clusters_map, df) {
+  clsGrp <- groupByCluster_map(clusters_map)
+  chosen <- sapply(clsGrp, function(descr) {
+    clsdf <- df[as.character(df$Description) %in% descr, , drop=F]
+    bestIdx <- head(order(clsdf$"p.adjust"), 1)
+    as.character(clsdf$"Description"[bestIdx])
+  })
+  names(chosen) <- names(clsGrp)
+  chosen
 }
 
 exclude_go_terms_by_counts <- function(df, lowerCut=1, upperCut=Inf) {

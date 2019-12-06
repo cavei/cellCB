@@ -8,8 +8,14 @@
 \usage{
 clusterWithTca(esetRUV, genes, clusterK = 9)
 
-clusterTimes(normMatrix, days, genes, algo = "km", clusterK = 9,
-  takeLog = FALSE)
+clusterTimes(
+  normMatrix,
+  days,
+  genes,
+  algo = "km",
+  clusterK = 9,
+  takeLog = FALSE
+)
 
 watchCluster(tca, cols = 3)
 }
