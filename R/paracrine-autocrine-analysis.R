@@ -310,12 +310,12 @@ paraWiseMultiMergeTimePoints <- function(ligandReceptorBehavioursCell,
 #' @param condition cell condition
 #'
 #' @rdname paracrine-autocrine-functions
-#' @importFrom networkDynamic networkDynamic
 #' @importFrom network get.vertex.attribute network.vertex.names %v% %v%<-
-#' @importFrom ndtv render.d3movie
 #' @export
 #'
 renderHTMLvideo <- function(ligandsReceptorCumulative, receptorGraph, lrCols, lrCell=NULL, cell, condition) {
+  # @importFrom ndtv render.d3movie
+  # @importFrom networkDynamic networkDynamic
 
   removeTimes <- NULL
   for (x in names(ligandsReceptorCumulative)) {
@@ -367,13 +367,13 @@ renderHTMLvideo <- function(ligandsReceptorCumulative, receptorGraph, lrCols, lr
 #' @inheritParams renderHTMLvideo
 #'
 #' @rdname paracrine-autocrine-functions
-#' @importFrom networkDynamic networkDynamic
 #' @importFrom network get.vertex.attribute network.vertex.names %v% %v%<-
-#' @importFrom ndtv render.d3movie
+
 #' @export
 #'
 renderHTMLvideo2.0 <- function(ligandsReceptorCumulative, receptorGraph, cell, condition) {
-
+# import from ndtv render.d3movie
+# @importFrom networkDynamic networkDynamic
   removeTimes <- NULL
   for (x in names(ligandsReceptorCumulative)) {
     l <- unlist(lapply(ligandsReceptorCumulative[[x]], length))

@@ -1,4 +1,4 @@
-#' @import org.Mm.eg.db
+
 create.GO_DB <- function(ont="BP", keyType = "SYMBOL", OrgDb="org.Mm.eg.db"){
   requireNamespace(OrgDb)
   OrgDb=get("org.Mm.eg.db")
@@ -21,8 +21,6 @@ create.GO_DB <- function(ont="BP", keyType = "SYMBOL", OrgDb="org.Mm.eg.db"){
 #' @param keyType SYMBOL
 #' @param OrgDb org.Mm.eg.db
 #'
-#' @import clusterProfiler
-#' @import org.Mm.eg.db
 #' @importFrom DOSE setReadable
 #'
 #' @export
@@ -57,8 +55,6 @@ my.enricher <- function (gene, go_bp_full_data, pvalueCutoff = 0.05,
 #' @param data NULL
 #' @param \dots other argument
 #'
-#' @import clusterProfiler
-#' @import org.Mm.eg.db
 #' @importFrom magrittr %>%
 #' @importFrom stats formula
 #' @importFrom plyr dlply llply ldply rename .
