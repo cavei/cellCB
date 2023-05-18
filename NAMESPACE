@@ -52,7 +52,9 @@ export(sigTable_filter_by_clusters_map)
 export(summaryBarplot)
 export(watchCluster)
 export(wiseMergeTimePoints)
-import(clusterProfiler)
+
+# import(clusterProfiler)
+
 import(org.Mm.eg.db)
 importFrom(Biobase,pData)
 importFrom(BoolNet,binarizeTimeSeries)

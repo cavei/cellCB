@@ -48,6 +48,7 @@ personal.dotplot.compareClusterResult <- function(object, x=~Cluster, colorBy="p
                                                   font.size=12, title="",
                                                   filterSets=NULL, relabel_description=NULL,
                                                   relabel_names = NULL,
+                                                  name_orders = NULL,
                                                   output_df=FALSE) {
 
   df <- personal.fortify.compareClusterResult(object, showCategory=showCategory, by=by,
@@ -65,13 +66,34 @@ personal.dotplot.compareClusterResult <- function(object, x=~Cluster, colorBy="p
   }
 
   #### THIS code need to be carefully reviewed becase of the sorting
-  sorted_descr <- as.character(df$Description)[order(df$Cluster,-df$GeneRatio)]
+  if (!is.null(name_orders)) {
+    if (!all(unique(as.character(df$Description)) %in% name_orders)) {
+      missing <- setdiff(unique(as.character(df$Description)), name_orders)
+      stop(paste0("the following category are missin from imput: ",
+                  paste(missing, collapse = ", ")))
+    }
+    sorted_descr <- name_orders
+  } else {
+    sorted_descr <- as.character(df$Description)[order(df$Cluster,-df$GeneRatio)]
+  }
   df$Description <- factor(df$Description, levels = rev(unique(sorted_descr)))
+
+  if (!is.null(name_orders)) {
+    df$Description <- factor(df$Description, levels = rev(unique(sorted_descr)))
+  }
 
   if (output_df)
     return(df)
 
-  clusterProfiler:::plotting.clusterProfile(df, x=x, type="dot", colorBy=colorBy, by=by, title=title, font.size=font.size)
+  # enrichplot:::plotting.clusterProfile(df, x=x, type="dot", colorBy=colorBy, by=by, title=title, font.size=font.size)
+  p <- ggplot(df, aes_string(x = "Cluster", y = "Description", size = "GeneRatio")) +
+    geom_point(aes_string(color = colorBy))
+
+  p + scale_color_continuous(low = "red", high = "blue", guide = guide_colorbar(reverse = TRUE)) +
+    ylab(NULL) + ggtitle(title) + DOSE::theme_dose(font.size) +
+    scale_size_continuous(range = c(3, 8)) +
+    guides(size = guide_legend(order = 1), color = guide_colorbar(order = 2))
+
 }
 
 rename_description <- function(df, relabel_description) {

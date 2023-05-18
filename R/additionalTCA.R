@@ -56,8 +56,10 @@ clusterTimes <- function(normMatrix, days, genes, algo="km", clusterK=9, takeLog
   tc <- data.matrix(tc)
   if (takeLog)
     tc <- log2(tc+1)
-  TCseq::timeclust(tc, algo = algo, k = clusterK, dist = "euclidean", centers = NULL,
-            standardize = TRUE)
+  # TCseq::timeclust(tc, algo = algo, k = clusterK, dist = "euclidean", centers = NULL,
+  #           standardize = TRUE)
+  TCseq::timeclust(tc, algo = algo, k = clusterK, dist = "distance", centers = NULL,
+                   standardize = TRUE)
 }
 
 #' Visualize the cluster produced
