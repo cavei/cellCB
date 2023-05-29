@@ -1,7 +1,7 @@
 Package: cellCB
 Type: Package
 Title: Cell City Band
-Version: 0.1.0
+Version: 0.2.0
 Author: Paolo Martini
 Maintainer: Paolo Martini <paolo.cavei@gmail.com>
 Description: Collection of function to create cell to cell interactome.
