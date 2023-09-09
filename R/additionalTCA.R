@@ -16,7 +16,7 @@
 clusterWithTca <- function(esetRUV, genes, clusterK=9) {
   normalizedCountsMatrix <- normCounts(esetRUV$setEmpirical)
   tca <- clusterTimes(normMatrix = normalizedCountsMatrix, days = as.character(esetRUV$setEmpirical$days),
-                      genes = genes, clusterK = 9, takeLog = T)
+                      genes = genes, clusterK = clusterK, takeLog = T)
 
   binaryCenter <- binarizeTimeSeries(tca@centers)
   clusters <- data.frame(gene=names(tca@cluster), cluster=tca@cluster)
